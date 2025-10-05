@@ -1,0 +1,571 @@
+{
+	"info": {
+		"_postman_id": "bfb160ad-a49b-4415-b559-e013205ada5e",
+		"name": "Contact List",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "46000395",
+		"_collection_link": "https://subhadeepsarkar-2726675.postman.co/workspace/Subhadeep-Sarkar's-Workspace~324fa7b7-a25f-4c85-8b8e-d234c404ecb7/collection/46000395-bfb160ad-a49b-4415-b559-e013205ada5e?action=share&source=collection_link&creator=46000395"
+	},
+	"item": [
+		{
+			"name": "Basic Endpoint Tests",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"subhadeeps91@gmail.com\",\r\n    \"password\":\"Mylovekolkata@90\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://thinking-tester-contact-list.herokuapp.com/users/login",
+							"protocol": "https",
+							"host": [
+								"thinking-tester-contact-list",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Contact List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"correct´cotanct is returned\", function () {\r",
+									"    pm.response.to.have.body(\"abc@gmail.com\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGE1ZWIxN2U1ZjcwZjAwMTU2MGY2NGYiLCJpYXQiOjE3NTU3MDQ5Mzl9.CrxBgXbPRiiLd3HZnmIodiAuiE9SNNhbV1d6xLD0QAg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"subhadeeps91@gmail.com\",\r\n    \"password\":\"Mylovekolkata@90\"\r\n}"
+						},
+						"url": {
+							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts",
+							"protocol": "https",
+							"host": [
+								"thinking-tester-contact-list",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Contact",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Missing Field First Name message display\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"`firstName` is required.\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGE1ZWIxN2U1ZjcwZjAwMTU2MGY2NGYiLCJpYXQiOjE3NTU3MDQ5Mzl9.CrxBgXbPRiiLd3HZnmIodiAuiE9SNNhbV1d6xLD0QAg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n\t{\r\n\t\"firstName\": \"\",\r\n        \"lastName\": \"Bhaiya\",\r\n        \"birthdate\": \"1997-07-07\",\r\n        \"email\": \"fgh@gmail.com\",\r\n        \"phone\": \"9000000007\",\r\n        \"street1\": \"Hasan Road\",\r\n        \"street2\": \"Muzzafarnagar\",\r\n        \"city\": \"Patna\",\r\n        \"stateProvince\": \"Bihar\",\r\n        \"postalCode\": \"800025\",\r\n        \"country\": \"India\"\r\n\t}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts",
+							"protocol": "https",
+							"host": [
+								"thinking-tester-contact-list",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update contact",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGE1ZWIxN2U1ZjcwZjAwMTU2MGY2NGYiLCJpYXQiOjE3NTU3MDQ5Mzl9.CrxBgXbPRiiLd3HZnmIodiAuiE9SNNhbV1d6xLD0QAg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n    \"firstName\": \"Chota\",\r\n    \"lastName\": \"Chatri\",\r\n    \"birthdate\": \"1967-06-20\",\r\n    \"email\": \"efg@gmail.com\",\r\n    \"phone\": \"9000000005\",\r\n    \"street1\": \"Khatra Mahel\",\r\n    \"street2\": \"Andhernagar\",\r\n    \"city\": \"New Delhi\",\r\n    \"stateProvince\": \"Delhi\",\r\n    \"postalCode\": \"110025\",\r\n    \"country\": \"India\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/{{contacts}}",
+							"protocol": "https",
+							"host": [
+								"thinking-tester-contact-list",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"contacts",
+								"{{contacts}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Contact Specific",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"The First Name is correct\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.firstName).to.eql(\"Krittika\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGE1ZWIxN2U1ZjcwZjAwMTU2MGY2NGYiLCJpYXQiOjE3NTU3MDQ5Mzl9.CrxBgXbPRiiLd3HZnmIodiAuiE9SNNhbV1d6xLD0QAg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"subhadeeps91@gmail.com\",\r\n    \"password\":\"Mylovekolkata@90\"\r\n}"
+						},
+						"url": {
+							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/{{contacts}}",
+							"protocol": "https",
+							"host": [
+								"thinking-tester-contact-list",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"contacts",
+								"{{contacts}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Contact",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGE1ZWIxN2U1ZjcwZjAwMTU2MGY2NGYiLCJpYXQiOjE3NTU3MDQ5Mzl9.CrxBgXbPRiiLd3HZnmIodiAuiE9SNNhbV1d6xLD0QAg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"subhadeeps91@gmail.com\",\r\n    \"password\":\"Mylovekolkata@90\"\r\n}"
+						},
+						"url": {
+							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/{{contacts}}",
+							"protocol": "https",
+							"host": [
+								"thinking-tester-contact-list",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"contacts",
+								"{{contacts}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"pm.test(\"Response time is less than 3000ms\", function () {\r",
+							"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+							"});"
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Negative Tests",
+			"item": [
+				{
+					"name": "False Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"subhadeeps91@gmail.com\",\r\n    \"password\":\"Mylovekolkata@91\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://thinking-tester-contact-list.herokuapp.com/users/login",
+							"protocol": "https",
+							"host": [
+								"thinking-tester-contact-list",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Contact List Unauthorized",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"subhadeeps91@gmail.com\",\r\n    \"password\":\"Mylovekolkata@90\"\r\n}"
+						},
+						"url": {
+							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts",
+							"protocol": "https",
+							"host": [
+								"thinking-tester-contact-list",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Contact - not Found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGE1ZWIxN2U1ZjcwZjAwMTU2MGY2NGYiLCJpYXQiOjE3NTU3MDQ5Mzl9.CrxBgXbPRiiLd3HZnmIodiAuiE9SNNhbV1d6xLD0QAg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"subhadeeps91@gmail.com\",\r\n    \"password\":\"Mylovekolkata@90\"\r\n}"
+						},
+						"url": {
+							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/{{contacts}}",
+							"protocol": "https",
+							"host": [
+								"thinking-tester-contact-list",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"contacts",
+								"{{contacts}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Contact Missing Field Value",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGE1ZWIxN2U1ZjcwZjAwMTU2MGY2NGYiLCJpYXQiOjE3NTU3MDQ5Mzl9.CrxBgXbPRiiLd3HZnmIodiAuiE9SNNhbV1d6xLD0QAg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n\t{\r\n\t\"firstName\": \"\",\r\n        \"lastName\": \"Bhaiya\",\r\n        \"birthdate\": \"1997-07-07\",\r\n        \"email\": \"ced@gmail.com\",\r\n        \"phone\": \"9000000003\",\r\n        \"street1\": \"Hasan Road\",\r\n        \"street2\": \"Muzzafarnagar\",\r\n        \"city\": \"Patna\",\r\n        \"stateProvince\": \"Bihar\",\r\n        \"postalCode\": \"800025\",\r\n        \"country\": \"India\"\r\n\t}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts",
+							"protocol": "https",
+							"host": [
+								"thinking-tester-contact-list",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Contact Last Name too long",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGE1ZWIxN2U1ZjcwZjAwMTU2MGY2NGYiLCJpYXQiOjE3NTU3MDQ5Mzl9.CrxBgXbPRiiLd3HZnmIodiAuiE9SNNhbV1d6xLD0QAg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n\t{\r\n\t\"firstName\": \"Bobre\",\r\n        \"lastName\": \"Dadaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\r\n        \"birthdate\": \"1967-06-07\",\r\n        \"email\": \"efg@gmail.com\",\r\n        \"phone\": \"9000000005\",\r\n        \"street1\": \"Khatra Mahel\",\r\n        \"street2\": \"Andhernagar\",\r\n        \"city\": \"Delhi\",\r\n        \"stateProvince\": \"Delhi\",\r\n        \"postalCode\": \"110025\",\r\n        \"country\": \"India\"\r\n\t}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts",
+							"protocol": "https",
+							"host": [
+								"thinking-tester-contact-list",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update contact invalid email",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGE1ZWIxN2U1ZjcwZjAwMTU2MGY2NGYiLCJpYXQiOjE3NTU3MDQ5Mzl9.CrxBgXbPRiiLd3HZnmIodiAuiE9SNNhbV1d6xLD0QAg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n   \"firstName\": \"Mita\",\r\n        \"lastName\": \"Sarkar\",\r\n        \"birthdate\": \"1963-09-15\",\r\n        \"email\": \"bcdgmail.com\",\r\n        \"phone\": \"9000000002\",\r\n        \"street1\": \"Barun Field Road\",\r\n        \"street2\": \"Alipore\",\r\n        \"city\": \"Kolkata\",\r\n        \"stateProvince\": \"West Bengal\",\r\n        \"postalCode\": \"700025\",\r\n        \"country\": \"India\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/{{contacts}}",
+							"protocol": "https",
+							"host": [
+								"thinking-tester-contact-list",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"contacts",
+								"{{contacts}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					"pm.test(\"Response time is less than 3000ms\", function () {\r",
+					"    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+					"});"
+				]
+			}
+		}
+	]
+}
