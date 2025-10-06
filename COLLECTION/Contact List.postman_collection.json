@@ -2,6 +2,7 @@
 	"info": {
 		"_postman_id": "bfb160ad-a49b-4415-b559-e013205ada5e",
 		"name": "Contact List",
+		"description": "API endpoint validation using an online platform to test various functionalities.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "46000395",
 		"_collection_link": "https://subhadeepsarkar-2726675.postman.co/workspace/Subhadeep-Sarkar's-Workspace~324fa7b7-a25f-4c85-8b8e-d234c404ecb7/collection/46000395-bfb160ad-a49b-4415-b559-e013205ada5e?action=share&source=collection_link&creator=46000395"
@@ -50,9 +51,11 @@
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
-									"pm.test(\"correct´cotanct is returned\", function () {\r",
-									"    pm.response.to.have.body(\"abc@gmail.com\");\r",
-									"});"
+									"pm.test(\"Response contains expected data\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"bcd@gmail.com\");\r",
+									"});\r",
+									"\r",
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -68,7 +71,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGE1ZWIxN2U1ZjcwZjAwMTU2MGY2NGYiLCJpYXQiOjE3NTU3MDQ5Mzl9.CrxBgXbPRiiLd3HZnmIodiAuiE9SNNhbV1d6xLD0QAg",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2OGE1ZWIxN2U1ZjcwZjAwMTU2MGY2NGYiLCJpYXQiOjE3NTk3NTk0Mzd9.cRNmmuizLYSPEtmveEK8rTRiVa72gcLPhuAAZ40h_GU",
 									"type": "string"
 								}
 							]
@@ -77,7 +80,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"subhadeeps91@gmail.com\",\r\n    \"password\":\"Mylovekolkata@90\"\r\n}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts",
@@ -164,7 +167,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \r\n    \"firstName\": \"Chota\",\r\n    \"lastName\": \"Chatri\",\r\n    \"birthdate\": \"1967-06-20\",\r\n    \"email\": \"efg@gmail.com\",\r\n    \"phone\": \"9000000005\",\r\n    \"street1\": \"Khatra Mahel\",\r\n    \"street2\": \"Andhernagar\",\r\n    \"city\": \"New Delhi\",\r\n    \"stateProvince\": \"Delhi\",\r\n    \"postalCode\": \"110025\",\r\n    \"country\": \"India\"\r\n}",
+							"raw": "{\r\n    \r\n    \"firstName\": \"Vijay\",\r\n    \"lastName\": \"Chohan\",\r\n    \"birthdate\": \"1985-06-20\",\r\n    \"email\": \"agneepath@gmail.com\",\r\n    \"phone\": \"9000000013\",\r\n    \"street1\": \"Koliwara\",\r\n    \"street2\": \"Dongri\",\r\n    \"city\": \"Mumbai\",\r\n    \"stateProvince\": \"Maharashtra\",\r\n    \"postalCode\": \"400009\",\r\n    \"country\": \"India\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -196,8 +199,9 @@
 								"exec": [
 									"pm.test(\"The First Name is correct\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.firstName).to.eql(\"Krittika\");\r",
-									"});"
+									"    pm.expect(jsonData.firstName).to.eql(\"Vijay\");\r",
+									"});\r",
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -222,7 +226,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"subhadeeps91@gmail.com\",\r\n    \"password\":\"Mylovekolkata@90\"\r\n}"
+							"raw": ""
 						},
 						"url": {
 							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/{{contacts}}",
@@ -311,7 +315,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"subhadeeps91@gmail.com\",\r\n    \"password\":\"Mylovekolkata@91\"\r\n}",
+							"raw": "{\r\n    \"email\":\"subhadeeps91@gmail.com\",\r\n    \"password\":\"Abcdef@91\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -385,6 +389,13 @@
 								"type": "text/javascript",
 								"packages": {}
 							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"packages": {},
+								"type": "text/javascript"
+							}
 						}
 					],
 					"protocolProfileBehavior": {
@@ -408,7 +419,7 @@
 							"raw": "{\r\n    \"email\":\"subhadeeps91@gmail.com\",\r\n    \"password\":\"Mylovekolkata@90\"\r\n}"
 						},
 						"url": {
-							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/{{contacts}}",
+							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/68b58b6046b23300154f7644",
 							"protocol": "https",
 							"host": [
 								"thinking-tester-contact-list",
@@ -417,7 +428,7 @@
 							],
 							"path": [
 								"contacts",
-								"{{contacts}}"
+								"68b58b6046b23300154f7644"
 							]
 						}
 					},
@@ -566,6 +577,13 @@
 					"});"
 				]
 			}
+		}
+	],
+	"variable": [
+		{
+			"key": "contacts",
+			"value": "",
+			"type": "default"
 		}
 	]
 }
