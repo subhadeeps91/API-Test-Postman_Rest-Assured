@@ -104,12 +104,36 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Successful POST request\", function () {\r",
-									"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
-									"});"
+									"let statusCode = pm.response.code;\r",
+									"let jsonData = pm.response.json();\r",
+									"\r",
+									"// If the record was created successfully\r",
+									"if (statusCode === 201 || statusCode === 202) {\r",
+									"    pm.test(\"Successful POST request\", function () {\r",
+									"        pm.expect(statusCode).to.be.oneOf([201, 202]);\r",
+									"    });\r",
+									"    // Save the ID into a collection variable for later requests\r",
+									"    pm.collectionVariables.set(\"_id\", jsonData._id);\r",
+									"}\r",
+									"\r",
+									"// If the record already exists (duplicate)\r",
+									"else if (statusCode === 400 || statusCode === 409) {\r",
+									"    pm.test(\"Duplicate data is not allowed\", function () {\r",
+									"        pm.expect(statusCode).to.be.oneOf([400, 409]);\r",
+									"    });\r",
+									"}\r",
+									"\r",
+									"// Catch-all for unexpected responses\r",
+									"else {\r",
+									"    pm.test(\"Unexpected response code\", function () {\r",
+									"        pm.expect.fail(`Received unexpected status code: ${statusCode}`);\r",
+									"    });\r",
+									"}\r",
+									""
 								],
 								"type": "text/javascript",
-								"packages": {}
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -128,7 +152,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "\r\n\t{\r\n\t\"firstName\": \"Bhola\",\r\n        \"lastName\": \"Shaw\",\r\n        \"birthdate\": \"1995-07-07\",\r\n        \"email\": \"uvx@gmail.com\",\r\n        \"phone\": \"9000000020\",\r\n        \"street1\": \"Hasan Road\",\r\n        \"street2\": \"Muzzafarnagar\",\r\n        \"city\": \"Patna\",\r\n        \"stateProvince\": \"Bihar\",\r\n        \"postalCode\": \"800040\",\r\n        \"country\": \"India\"\r\n\t}",
+							"raw": "\r\n\t{\r\n\t\"firstName\": \"Baby\",\r\n        \"lastName\": \"Baby\",\r\n        \"birthdate\": \"1998-03-08\",\r\n        \"email\": \"bbaby@gmail.com\",\r\n        \"phone\": \"9000000061\",\r\n        \"street1\": \"Baby Road\",\r\n        \"street2\": \"Baby Rasta\",\r\n        \"city\": \"Kolkata\",\r\n        \"stateProvince\": \"West Bengal\",\r\n        \"postalCode\": \"700051\",\r\n        \"country\": \"India\"\r\n\t}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -159,12 +183,13 @@
 								"exec": [
 									"pm.test(\"The First Name is correct\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData.firstName).to.eql(\"Kancha\");\r",
+									"    pm.expect(jsonData.firstName).to.eql(\"Baby\");\r",
 									"});\r",
 									""
 								],
 								"type": "text/javascript",
-								"packages": {}
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -189,7 +214,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/{{contacts}}",
+							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/{{_id}}",
 							"protocol": "https",
 							"host": [
 								"thinking-tester-contact-list",
@@ -198,7 +223,7 @@
 							],
 							"path": [
 								"contacts",
-								"{{contacts}}"
+								"{{_id}}"
 							]
 						}
 					},
@@ -206,6 +231,21 @@
 				},
 				{
 					"name": "Update contact",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -221,7 +261,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \r\n    \"firstName\": \"Vijay\",\r\n    \"lastName\": \"Chauhan\",\r\n    \"birthdate\": \"1985-06-20\",\r\n    \"email\": \"agneepath@gmail.com\",\r\n    \"phone\": \"9000000013\",\r\n    \"street1\": \"Koliwara\",\r\n    \"street2\": \"Dongri\",\r\n    \"city\": \"Mumbai\",\r\n    \"stateProvince\": \"Maharashtra\",\r\n    \"postalCode\": \"400009\",\r\n    \"country\": \"India\"\r\n}",
+							"raw": "{\r\n    \r\n    \"firstName\": \"Chotku\",\r\n    \"lastName\": \"Chauhan\",\r\n    \"birthdate\": \"1999-06-20\",\r\n    \"email\": \"cbaby@gmail.com\",\r\n    \"phone\": \"9000000053\",\r\n    \"street1\": \"Koyla\",\r\n    \"street2\": \"Sarak\",\r\n    \"city\": \"Kolkata\",\r\n    \"stateProvince\": \"West Bengal\",\r\n    \"postalCode\": \"700019\",\r\n    \"country\": \"India\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -229,7 +269,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/{{contacts}}",
+							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/{{_id}}",
 							"protocol": "https",
 							"host": [
 								"thinking-tester-contact-list",
@@ -238,7 +278,7 @@
 							],
 							"path": [
 								"contacts",
-								"{{contacts}}"
+								"{{_id}}"
 							]
 						}
 					},
@@ -246,6 +286,21 @@
 				},
 				{
 					"name": "Delete Contact",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
+							}
+						}
+					],
 					"request": {
 						"auth": {
 							"type": "bearer",
@@ -264,7 +319,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/{{contacts}}",
+							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/{{_id}}",
 							"protocol": "https",
 							"host": [
 								"thinking-tester-contact-list",
@@ -273,7 +328,7 @@
 							],
 							"path": [
 								"contacts",
-								"{{contacts}}"
+								"{{_id}}"
 							]
 						}
 					},
@@ -387,7 +442,8 @@
 									"});"
 								],
 								"type": "text/javascript",
-								"packages": {}
+								"packages": {},
+								"requests": {}
 							}
 						},
 						{
@@ -397,7 +453,8 @@
 									""
 								],
 								"type": "text/javascript",
-								"packages": {}
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -422,7 +479,7 @@
 							"raw": "{\r\n    \"email\":\"subhadeeps91@gmail.com\",\r\n    \"password\":\"Mylovekolkata@90\"\r\n}"
 						},
 						"url": {
-							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/68b58b6046b23300154f7644",
+							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/{{_id}}",
 							"protocol": "https",
 							"host": [
 								"thinking-tester-contact-list",
@@ -431,7 +488,7 @@
 							],
 							"path": [
 								"contacts",
-								"68b58b6046b23300154f7644"
+								"{{_id}}"
 							]
 						}
 					},
@@ -554,7 +611,7 @@
 							}
 						},
 						"url": {
-							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/{{contacts}}",
+							"raw": "https://thinking-tester-contact-list.herokuapp.com/contacts/{{_id}}",
 							"protocol": "https",
 							"host": [
 								"thinking-tester-contact-list",
@@ -563,7 +620,7 @@
 							],
 							"path": [
 								"contacts",
-								"{{contacts}}"
+								"{{_id}}"
 							]
 						}
 					},
@@ -601,6 +658,10 @@
 			"key": "contacts",
 			"value": "",
 			"type": "default"
+		},
+		{
+			"key": "_id",
+			"value": ""
 		}
 	]
 }
